@@ -15,8 +15,8 @@ from pathlib import Path
 import os
 import json
 
-#with open('/var/www/webroot/conf.json') as config_file:
-with open('conf.json') as config_file:
+
+with open('/etc/config.json') as config_file:
     config = json.load(config_file)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,16 +30,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = config['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-CSRF_TRUSTED_ORIGINS=['https://env-2925731.jcloud.ik-server.com']
 
 ALLOWED_HOSTS = [
-        '192.168.1.107',
-        'localhost',
-        '*'
+        '82.165.79.181',
+	'coachlamont.de'
 ]
-
 
 # Application definition
 
