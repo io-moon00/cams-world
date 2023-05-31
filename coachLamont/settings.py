@@ -32,10 +32,6 @@ SECRET_KEY = config['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-CORS_ALLOWED_ORIGINS = [
-    'http://coachlamont.de/',
-]
-
 ALLOWED_HOSTS = [
     '82.165.79.181',
 	'coachlamont.de',
@@ -58,7 +54,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
+    'http://coachlamont.de',
 ]
 
 MIDDLEWARE = [
