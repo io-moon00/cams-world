@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'forms',
 ]
 
-CSRF_TRUSTED_ORIGINS=['http://coachlamont.de', 'http://82.165.79.181']
+CSRF_TRUSTED_ORIGINS=['http://coachlamont.de/', 'http://82.165.79.181']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
