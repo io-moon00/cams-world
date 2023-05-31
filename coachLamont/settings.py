@@ -32,10 +32,13 @@ SECRET_KEY = config['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+CORS_ALLOWED_ORIGINS = [
+    'http://coachlamont.de/',
+]
 
 ALLOWED_HOSTS = [
-        '82.165.79.181',
-	'coachlamont.de'
+    '82.165.79.181',
+	'coachlamont.de',
 ]
 
 # Application definition
@@ -186,7 +189,7 @@ JAZZMIN_SETTINGS ={
 "custom_links": {
     "main": [{
         "name": "Home",
-        "url": "http://127.0.0.1:8000/",
+        "url": "http://coachlamont.de/",
         "icon": "fas fa-home",
     }]
 },

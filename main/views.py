@@ -5,20 +5,22 @@ from .models import CareerStage, Page, AboutSection, Athlet, Post, AthletImage, 
 
 # Create your views here.
 current_year = date.today().year
-all_athlets = Athlet.objects.filter(published = 'True')
 social_media = SocialMedia.objects.all()
 
 
 def home(request):
+    all_athlets = Athlet.objects.filter(published = 'True')
     page = Page.objects.get(page='home')
     return render(request, 'home.html', {'page': page, 'year': current_year, 'athlets': all_athlets, 'social_media': social_media})
 
 def coaching(request):
     page = Page.objects.get(page='coaching')
+    all_athlets = Athlet.objects.filter(published = 'True')
     return render(request, 'coaching.html',{'page': page, 'year': current_year, 'athlets': all_athlets, 'social_media': social_media})    
 
 def athlets(request):
     page = Page.objects.get(page='athlets')
+    all_athlets = Athlet.objects.filter(published = 'True')
     athlets_dt = Athlet.objects.filter(category='duathlon_triathlon', published = 'True')
     athlets_t = Athlet.objects.filter(category='triathlon', published = 'True')
     athlets_d = Athlet.objects.filter(category='duathlon', published = 'True')
@@ -28,12 +30,14 @@ def athlets(request):
 def athlet(request, id):
     athlet = get_object_or_404(Athlet, pk=id)
     images = AthletImage.objects.filter(athlet=athlet)
+    all_athlets = Athlet.objects.filter(published = 'True')
     return render(request, 'athlet.html',{'year': current_year, 'athlets': all_athlets, 'athlet': athlet, 'images': images, 'social_media': social_media})    
 
 def blog(request):
     page = Page.objects.get(page='blog')
     posts = Post.objects.filter(published = 'True')
     posts = posts.order_by('postDate')
+    all_athlets = Athlet.objects.filter(published = 'True')
     return render(request, 'blog.html',{'page': page, 'year': current_year, 'posts': posts, 'athlets': all_athlets, 'social_media': social_media})
 
 def about(request):
@@ -41,14 +45,17 @@ def about(request):
     aboutSections = AboutSection.objects.all()
     careerStages = CareerStage.objects.all()
     images = MyImage.objects.all()
+    all_athlets = Athlet.objects.filter(published = 'True')
     return render(request, 'about.html', {'aboutSections': aboutSections, 'page': page, 'year': current_year, 'careerStages': careerStages, 'athlets': all_athlets, 'images': images, 'social_media': social_media})
 
 def impressum(request):
     page = Page.objects.get(page='impressum')
+    all_athlets = Athlet.objects.filter(published = 'True')
     return render(request, 'impressum.html', {'page': page, 'year': current_year, 'athlets': all_athlets, 'social_media': social_media})
 
 def legal(request):
     page = Page.objects.get(page='legal')
+    all_athlets = Athlet.objects.filter(published = 'True')
     return render(request, 'legal.html', {'page': page, 'year': current_year, 'athlets': all_athlets, 'social_media': social_media})
 
 def page_not_found_view(request, exception):

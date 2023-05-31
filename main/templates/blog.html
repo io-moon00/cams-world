@@ -9,6 +9,8 @@
 {% block page %}'blog'{% endblock %}
 
 {% block content %}
+{% if posts %}
+
 <div class="all-posts">
     {% for post in posts %}
     <div class="post">
@@ -51,4 +53,16 @@
     </div> 
     {% endfor %} 
 </div>
+
+{% elif LANGUAGE_CODE == 'de' %}
+<div>
+    Die Webseite befindet sich noch im Aufbau, deshalb sind noch keine Blogbeiträge erfasst. Schauen
+    Sie gerne zu einem späteren Zeitpunkt wieder vorbei.
+</div>
+{% else %}
+<div>
+    The website is still under construction, so no blog posts are recorded yet.
+    Feel free to check back at a later date.
+</div>
+{% endif %}
 {% endblock %}
