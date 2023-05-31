@@ -1,0 +1,54 @@
+{% extends 'page.html' %}
+{% load i18n %}
+{% load markdown_extras %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/style/blog.css">
+{% endblock %}
+
+{% block page %}'blog'{% endblock %}
+
+{% block content %}
+<div class="all-posts">
+    {% for post in posts %}
+    <div class="post">
+        <img src="{{ post.image.image.url }}">
+        <div class="post-content">
+            <span class="date">{{ post.postDate }}</span>
+            <span class="tag" style="color: {{ post.tag.color }};">{{ post.tag.name }}</span>
+
+            {% if LANGUAGE_CODE == 'de' and post.title_de %}
+                <h2>{{ post.title_de }}</h2>
+            {% else %}
+                <h2>{{ post.title }}</h2>
+            {% endif %}
+
+            {% if LANGUAGE_CODE == 'de' and post.subtitle_de %}
+                <h3>{{ post.subtitle_de }}</h3>
+            {% elif post.subtitle %}
+                <h3>{{ post.subtitle }}</h3>
+            {% endif %}
+
+            {% if LANGUAGE_CODE == 'de' and post.content_de %}
+                <div class="text">{{ post.content_de | convert_markdown | safe }}</div>
+            {% else %}
+                <div class="text">{{ post.content | convert_markdown | safe }}</div>
+            {% endif %}
+
+            {% if post.link %}
+                <a class="button" href="{{post.link.url}}">
+                    {% if LANGUAGE_CODE == 'de' and post.link_text_de %}
+                        {{ post.link_text_de }}
+                    {% elif post.link_text %}
+                        {{ post.link_text }}
+                    {% else %}    
+                        Link
+                    {% endif %}
+                </a>
+            {% endif %}
+
+        </div>    
+    </div> 
+    {% endfor %} 
+</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+.all-athlets a{
+    text-decoration: none;
+    color: var(--text-color-dark);
+}
+
+.all-athlets a:hover{
+    color: var(--titel-color);
+}

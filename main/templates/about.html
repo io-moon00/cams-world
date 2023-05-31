@@ -1,0 +1,83 @@
+{% extends 'page.html' %}
+{% load i18n %}
+{% load markdown_extras %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/style/about.css">
+{% endblock %}
+{% block page %}'about'{% endblock %}
+{% block content %}
+
+{% for aboutSection in aboutSections %}
+    {% if 'aboutSection.title_de or aboutSection.text_de' and LANGUAGE_CODE == 'de' %}
+        <div class="aboutSection">
+            {% if aboutSection.image %}
+            <img src="{{ aboutSection.image.image.url }}">
+            {% endif %}
+            <div>         
+                {% if aboutSection.title_de %}
+                    <h3>{{ aboutSection.title_de }}</h3>
+                {% else %} 
+                    <h3>{{ aboutSection.title }}</h3>  
+                {% endif %}
+
+                {% if aboutSection.text_de %}
+                    <div>{{ aboutSection.text_de | convert_markdown | safe }}</div>
+                {% else %}  
+                    <div>{{ aboutSection.text | convert_markdown | safe }}</div>  
+                {% endif %} 
+            </div>         
+        </div>
+    {% else %}
+        <div class="aboutSection">
+            {% if aboutSection.image %}
+            <img src="{{ aboutSection.image.image.url }}">
+            {% endif %}
+            <div>
+                <h3>{{ aboutSection.title }}</h3>
+                <div>{{ aboutSection.text | convert_markdown | safe }}</div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+{% if LANGUAGE_CODE == 'de' %}
+    <h3 class="mb-30">Teams und einige Rennen, an denen Cameron teilgenommen hat:</h3>
+{% else %}
+    <h3 class="mb-30">Teams and some races Cameron has done:</h3>
+{% endif %}
+
+<table id="careerStages">
+    {% for careerStage in careerStages %}
+    <tr>
+        <td class="year">{{ careerStage.year }}</td>
+        {% if LANGUAGE_CODE == 'de' and careerStage.text_de %}
+            <td>{{ careerStage.text_de }}</td>
+        {% else %}
+            <td>{{ careerStage.text }}</td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% if LANGUAGE_CODE == 'de' %}
+    <h3 class="mb-30 mt-40">Gallerie</h3>
+{% else %}
+    <h3 class="mb-30 mt-40">Gallery</h3>
+{% endif %} 
+
+<div class="gallery">
+    {% for image in images %}
+        {% if image.image.width < image.image.height %}
+            <img onclick="openImg('{{ image.image.url }}')" class="row-span-2" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ image.position }};">
+        {% else %}
+            <img onclick="openImg('{{ image.image.url }}')" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ image.position }};">
+        {% endif %}    
+    {% endfor %}
+</div>
+<div id="image-container" class="image-container d-none">
+    <img onclick="closeImg()" class="close-cross" src="../../media/public/closeCross.svg" alt="close Cross">
+    <img id="detail-image" class="img-detail-view" src = "">
+</div>
+
+{% endblock %}

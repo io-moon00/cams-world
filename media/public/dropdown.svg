@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Ebene_2" data-name="Ebene 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25.35 59.28">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: rgb(103, 103, 103);
+      }
+    </style>
+    <linearGradient id="Dégradé_sans_nom_18" data-name="Dégradé sans nom 18" x1="-13.27" y1="12.05" x2="16.12" y2="47.08" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4d4d4d"/>
+      <stop offset="1" stop-color="#1a1a1a"/>
+    </linearGradient>
+  </defs>
+  <g id="Calque_187_-_copie" data-name="Calque 187 - copie">
+    <g id="Calque_4_-_copie" data-name="Calque 4 - copie">
+      <path class="cls-1" d="m24.62,27L1.97.36c-.43-.5-.91-.48-1.33.06C.23.97,0,1.94,0,3v53.28c0,1.06.23,2.03.64,2.58.22.28.45.42.69.42.22,0,.44-.12.65-.36l22.65-26.64c.44-.52.72-1.54.72-2.64s-.28-2.12-.72-2.64Z"/>
+    </g>
+  </g>
+</svg>

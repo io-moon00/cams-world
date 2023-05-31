@@ -1,0 +1,187 @@
+{% load i18n %}
+{% load markdown_extras %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- style -->
+    <link rel="stylesheet" href="../static/style/header.css">
+    <link rel="stylesheet" href="../static/style/generalStyle.css">
+    <link rel="stylesheet" href="https://use.typekit.net/lkn6qbz.css">
+    <link rel="stylesheet" href="../static/style/footer.css">
+    <link rel="stylesheet" href="../static/style/dropdown.css">
+
+    {% block stylesheets %}{% endblock %}
+
+    <!-- social Media Tags -->
+    <meta property="og:title" content="Cams World"/>
+    <meta property="og:description" content="Triathlon, Cycling and Running Coaching"/>
+    <meta property="og:image" content="https://env-2925731.jcloud.ik-server.com/media/public/cams-world-kursiv.png"/>
+    <meta property="twitter:title" content="Cams World"/>
+    <meta property="twitter:description" content="Triathlon, Cycling and Running Coaching"/>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="twitter:image" content="https://env-2925731.jcloud.ik-server.com/media/public/cams-world-kursiv.png"/>
+
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../../media/public/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../media/public/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../media/public/favicon/favicon-16x16.png">
+    <link rel="manifest" href="../../media/public/favicon/site.webmanifest">
+    
+    <script src="../static/scripts/init.js"></script>
+
+    <!-- title -->
+    {% if athlet %}
+    <title>{{ athlet.first_name }} {{ athlet.last_name }}</title>
+    {% elif page %}
+    <title>{{ page.title }}</title>
+    {% else %}
+    <title>{% block title %}{% endblock %}</title>
+    {% endif %}
+
+</head>
+<body id="body" onload="init({% block page %}{% endblock %})">
+    {% get_current_language as LANGUAGE_CODE %}
+    <header>
+        <div class="header-wrapper">
+            <a class="logo-link" href="{% url 'home'%}">
+                <img class="logo" src="../../media/public/cams-world_vertikal_white.svg">
+            </a>
+            <nav class="menu">
+                <ol class="nav-links">
+                  <li id="home" class="menu-item"><a href="{% url 'home' %}">Home</a></li>
+                  <li id="about" class="menu-item"><a href="{% url 'about' %}">
+                    {% if LANGUAGE_CODE == 'de' %}
+                        über mich
+                    {% else %}   
+                        about me
+                    {% endif %} 
+                  </a></li>
+                  <li id="coaching" class="menu-item"><a href="{% url 'coaching' %}">Coaching</a></li>
+                  <li id="coaching" class="menu-item"><a href="{% url 'contact' %}">
+                    {% if LANGUAGE_CODE == 'de' %}
+                        Kontakt
+                    {% else %}   
+                        Contact
+                    {% endif %} 
+                </a></li>
+                  <li id="blog" class="menu-item"><a href="{% url 'blog' %}">blog</a></li>
+                  <li id="athlets" class="menu-item">
+                    <a href="{% url 'athlets' %}">
+                        {% if LANGUAGE_CODE == 'de' %}
+                            athleten
+                        {% else %}
+                            athlets
+                        {% endif %}
+                    </a>
+                    
+                    <svg onclick="dropdown()" id="arrow" class="drop-down-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25.35 59.28">
+                        <g id="Calque_187_-_copie" data-name="Calque 187 - copie">
+                            <g id="Calque_4_-_copie" data-name="Calque 4 - copie">
+                            <path class="cls-1" d="m24.62,27L1.97.36c-.43-.5-.91-.48-1.33.06C.23.97,0,1.94,0,3v53.28c0,1.06.23,2.03.64,2.58.22.28.45.42.69.42.22,0,.44-.12.65-.36l22.65-26.64c.44-.52.72-1.54.72-2.64s-.28-2.12-.72-2.64Z"/>
+                            </g>
+                        </g>
+                    </svg>
+
+                    <ol class="sub-menu" id="submenu">
+                        <div class="spacer"></div>
+                        <div class="sub-menu-bg">
+                            {% for athlet in athlets %}
+                                <li class="menu-item"><a href="{% url 'athlet' athlet.id %}">{{ athlet.first_name }} {{ athlet.last_name }}</a></li>
+                            {% endfor %}
+                        </div>
+                    </ol>
+                  </li>
+                </ol>
+                <div id="navbar-btn" onclick="toggleNavbar()" href="#">
+                    <div id="btn-icon" class=""></div>
+                </div>
+              </nav>
+            <form action="{% url 'set_language' %}" method="post" class="language">
+                {% csrf_token %}
+
+                <input type="hidden" name="text" value="{{ redirect_to }}">
+                {% if LANGUAGE_CODE == 'de' %}
+                <button name="language" type="submit" value="en">
+                    <span id="language-text">English</span>
+                    <img id="flag-img" class="flag" src="../../media/public/en.jpeg">
+                </button>
+                {% else %}
+                <button name="language" type="submit" value="de">
+                    <span id="language-text">Deutsch</span>
+                    <img id="flag-img" class="flag" src="../../media/public/de.jpeg">
+                </button>
+                {% endif %}
+            </form>
+        </div>
+    </header>
+    {% if athlet.hero %}
+        <img class="hero-img" style="object-position: {{ athlet.position }};" src="{{ athlet.hero.url }}" alt="Athlet Image">
+    {% elif page.hero.image %}
+        <img class="hero-img" src="{{ page.hero.image.url }}" alt="{{ page.hero.image.alt }}">
+    {% endif %}
+    
+    <div class="wrapper">
+        <div class="content">
+            {% if athlet %}
+            <h1>{{ athlet.first_name }} {{ athlet.last_name }}</h1>
+            {% elif page %}
+                {% if LANGUAGE_CODE == 'de' and page.title_de %}
+                    <h1>{{ page.title_de }}</h1>
+                {% else %}
+                    <h1>{{ page.title }}</h1>
+                {% endif %}
+            {% else %}
+                
+            {% endif %}
+
+            {% if LANGUAGE_CODE == 'de' and page.text_de %}
+                <div>
+                    {{ page.text_de | convert_markdown | safe }}
+                </div>
+            {% elif page.text %}
+                <div>
+                    {{ page.text | convert_markdown | safe }}
+                </div>
+            {% endif %}
+
+            {% block content %}
+            {% endblock %}    
+        </div>
+    </div>
+    <footer>
+        <div class="wrapper-footer">
+            <div class="copyright">
+                <span>© {{ year }} camsworld</span> 
+            </div>
+            <div class="flex-col">
+                <img class="footer-logo" src="../../media/public/camsworld_logo_notext.svg" alt="Logo">
+                <div class="social-media">
+                    {%  for social in social_media %}
+                    <a target="_blank" href="{{social.link}}"><img src="{{social.icon.url}}" alt="{{social.name}}"></a>
+                    {% endfor %}
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    {% if LANGUAGE_CODE == 'de' %}
+                        <li><a href="{% url 'contact' %}">Kontakt</a></li>
+                        <li><a href="{% url 'impressum' %}">Impressum</a></li>
+                        <li><a href="{% url 'legal' %}">Datenschutzerklärung</a> </li>
+                        <li><a href="/admin/">login</a></li>
+                
+                    {% else %}
+                        <li><a href="{% url 'contact' %}">contact</a></li>
+                        <li><a href="{% url 'impressum' %}">Impressum</a></li>
+                        <li><a href="{% url 'legal' %}">legal protection</a> </li>
+                        <li><a href="/admin/">login</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>

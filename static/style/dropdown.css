@@ -1,0 +1,209 @@
+.drop-down-arrow{
+    width: 8px;
+    transform: rotate(90deg);
+    transition: transform 225ms ease-in-out;
+}
+
+.drop-down-arrow.open{
+    transform: rotate(270deg);
+    transition: transform 225ms ease-in-out;
+}
+
+.menu ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links {
+    width: 100%;
+    margin: 1rem auto 0 auto;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    align-items: center;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px solid #b9b9b900;
+    position: relative;
+    transition: background 0.3s ease-in-out;
+    padding: 5px 20px;
+    gap: 10px;
+}
+
+.menu-item .sub-menu {
+    position: absolute;
+    top: 100%;
+    width: 200px;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+    transition: transform 0.3s linear;
+}
+
+.sub-menu .menu-item {
+    justify-content: flex-start;
+    padding: 5px 10px;
+}
+
+.sub-menu .menu-item a{
+    text-transform: capitalize !important;
+    justify-content: flex-start;
+    height: 42px;
+}
+
+.menu-item .sub-menu .menu-item {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.menu-item .sub-menu .menu-item a::before {
+    content: "";
+}
+
+.menu-item:not(:last-child) {
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.menu-item .sub-menu .menu-item:last-child {
+    border: 0;
+}
+
+.menu-item:hover, .menu-item.active {
+    border-bottom: 2px solid var(--main-color);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.menu-item:hover a::before, .menu-item.active a::before {
+    color: white;
+}
+
+.menu-item:hover .sub-menu {
+    transform: rotateX(0deg);
+}
+
+.sub-menu.open{
+    transform: rotateX(0deg);
+}
+
+.menu-item a {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    height: 100%;
+    width: 100%;
+}
+
+.spacer{
+    height: 12px;
+    width: 100%;
+}
+
+.sub-menu-bg{
+    background-color: black;    
+}
+
+@media(max-width: 1000px){
+    .menu-item{
+        padding: 5px 15px;
+    }
+}
+
+@media(max-width: 920px){
+    .menu-item{
+        padding: 5px 10px;
+    }
+}
+
+
+@media (max-width: 890px) {
+    #navbar-btn {
+        display: block;
+        visibility: visible;
+        position: absolute;
+        right: 40px;
+        bottom: 10px;
+    }
+
+    #navbar-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .nav-links{
+        grid-template-columns: none;
+        margin: 0;
+        display: flex;
+        width: 0;
+        height: calc(100vh - var(--header-height));
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin-top: var(--header-height);
+        background-color: #292929fa;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: all 175ms ease-in-out;
+        box-sizing: border-box;
+    }
+
+    .nav-links li:not(.sub-menu li){
+        margin: 20px 0 0 0;
+    }
+
+    .menu-item{
+        border-right: none !important;
+        font-size: 24px !important;
+        gap: 30px;
+    }
+
+    .menu-item:not(.sub-menu-bg .menu-item){
+        width: 200px;
+    }
+
+    .menu-item a{
+        font-size: 16px !important;
+        justify-content: center;
+        width: unset;
+        gap: 22px,
+    }
+
+    .nav-links {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        margin-top: var(--header-height) !important;
+        background-color: #292929fa;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition: all 175ms ease-in-out;
+        padding-top: 40px !important;
+    }
+
+    .nav-links.openNav {
+        width: 100%;
+    }
+
+    .nav-links.openNav li {
+        transform: translateX(0);
+    }
+
+    .menu-item .sub-menu{
+        background-color: unset;    
+    }
+
+    .sub-menu .menu-item a{
+        justify-content: center;
+    }
+}

@@ -1,0 +1,121 @@
+.gallery{
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-auto-rows: 300px;
+    gap: 20px;
+}
+
+.row-span-2{
+    grid-row: span 2;
+}
+
+.gallery img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: all 175ms ease-in-out;
+}
+
+.gallery img:hover{
+    transform: scale(1.03);
+    transition: all 175ms ease-in-out;
+}
+
+.athlet-name{
+    position: absolute;
+    top: 55vh;
+    right: 10%;
+    color: black;
+    padding: 10px 20px;
+    backdrop-filter: blur(2px) grayscale(40%);
+    border-radius: 4px;
+}
+
+h4{
+    margin-block-start: 0;
+    margin-block-end: 3em;
+}
+
+.image-container{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    box-sizing: border-box;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+}
+
+.img-detail-view{
+    object-fit: contain;
+    max-width: calc(100vw - 100px);
+    max-height: calc(100vh - 100px);
+}
+
+.close-cross{
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    height: 20px;
+    width: 20px;
+    transform: rotate(45deg);
+    cursor: pointer;
+}
+
+@media (max-width: 900px){
+    .gallery{
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 800px){
+
+    .image-container{
+        padding: 30px 0;
+    }
+    .img-detail-view{
+        max-width: 100%;
+        max-height: 100%;
+        box-sizing: border-box;
+    }
+
+    .close-cross{
+        top: 10px;
+        right: 10px;
+    }
+}
+
+
+@media (max-height: 700px){
+
+    .image-container{
+        padding: 30px 0;
+    }
+    .img-detail-view{
+        max-width: 100%;
+        max-height: 100%;
+        box-sizing: border-box;
+    }
+
+    .close-cross{
+        top: 10px;
+        right: 10px;
+    }
+}
+
+@media (max-width: 650px){
+    .gallery{
+        grid-auto-rows: 200px;
+    }
+}
+
+@media (max-width: 550px){
+    .gallery{
+        grid-auto-rows: 150px;
+    }
+}

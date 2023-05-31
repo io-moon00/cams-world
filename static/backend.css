@@ -1,0 +1,27 @@
+.btn-success{
+    background-image: linear-gradient(#5e5e5e,#535353 60%,#111111) !important;
+    border: none;
+}
+
+h1{
+    color: rgb(66, 66, 66) !important;
+}
+
+.img-circle{
+    border-radius: 0 !important;
+}
+
+.elevation-3{
+    box-shadow: unset !important;
+}
+
+.field-__str__ a{
+    color: #018cb6 !important;
+    transition: all 0.175s ease-in-out;
+}
+
+.field-__str__ a:hover{
+    text-decoration: none;
+    color: #006a8a !important;
+    transition: all 0.175s ease-in-out;
+}

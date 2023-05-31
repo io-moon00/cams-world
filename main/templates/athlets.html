@@ -1,0 +1,56 @@
+{% extends 'page.html' %}
+{% load i18n %}
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/style/athlets.css">
+{% endblock %}
+
+{% block page %}'athlets'{% endblock %}
+
+{% block content %}
+
+<div class="all-athlets">
+    {% if athlets_dt %}
+        <div>
+            <h3>Duathon/Triathlon</h3>
+            <ul>
+                {% for athlet in athlets_dt %}
+                <li><a href="{% url 'athlet' athlet.id %}">{{ athlet.first_name }} {{ athlet.last_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if athlets_t %}
+        <div>
+            <h3>Triathlon</h3>
+            <ul>
+                {% for athlet in athlets_t %}
+                <li><a href="{% url 'athlet' athlet.id %}">{{ athlet.first_name }} {{ athlet.last_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if athlets_d %}
+        <div>
+            <h3>Duathon</h3>
+            <ul>
+                {% for athlet in athlets_d %}
+                <li><a href="{% url 'athlet' athlet.id %}">{{ athlet.first_name }} {{ athlet.last_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    {% if athlets_c %}
+        <div>
+            <h3>Cycling</h3>
+            <ul>
+                {% for athlet in athlets_c %}
+                <li><a href="{% url 'athlet' athlet.id %}">{{ athlet.first_name }} {{ athlet.last_name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
