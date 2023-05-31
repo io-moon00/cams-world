@@ -53,9 +53,7 @@ INSTALLED_APPS = [
     'forms',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-    'http://coachlamont.de',
-]
+CSRF_TRUSTED_ORIGINS=['http://coachlamont.de', 'http://82.165.79.181']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
