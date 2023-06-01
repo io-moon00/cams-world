@@ -26,6 +26,9 @@ function removeAllActive(page){
     if(page !== 'coaching'){
         document.getElementById('coaching').classList.remove('active');
     }
+    if(page !== 'contact'){
+        document.getElementById('contact').classList.remove('active');
+    }
     if(page !== 'blog'){
         document.getElementById('blog').classList.remove('active');
     }
