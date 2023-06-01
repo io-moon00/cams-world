@@ -63,7 +63,7 @@ class AboutSection(models.Model):
     title_de = models.CharField(max_length=100, blank=True)
     text = models.TextField()
     text_de = models.TextField(blank=True)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE, null=True, blank=True)
     def __str__(self):
         return self.title
 
