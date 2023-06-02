@@ -137,3 +137,13 @@ h3 {
         grid-template-rows: var(--header-height) 60vh auto 400px;
     }
 }
+  .grecaptcha-badge {
+    width: 70px !important;
+    overflow: hidden !important;
+    transition: all 0.3s ease !important;
+    left: 10px !important;
+  }
+  
+  .grecaptcha-badge:hover {
+    width: 256px !important;
+  }
