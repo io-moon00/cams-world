@@ -11,7 +11,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
 import os
 import json
 
@@ -35,6 +34,17 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '82.165.79.181',
 	'coachlamont.de',
+    'cams-world.de',
+    'coachcamlam.de',
+    'coachlamont.com',
+]
+
+CSRF_TRUSTED_ORIGINS=[
+    'http://coachlamont.de/', 
+    'http://82.165.79.181',
+    'http://cams-world.de/',
+    'http://coachcamlam.de',
+    'http://coachlamont.com'
 ]
 
 # Application definition
@@ -52,8 +62,6 @@ INSTALLED_APPS = [
     'main',
     'forms',
 ]
-
-CSRF_TRUSTED_ORIGINS=['http://coachlamont.de/', 'http://82.165.79.181']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -139,9 +147,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Email settings
-DEFAULT_FROM_EMAIL = 'Admin <admin@dein_host.ch>'  # Name unter dem die E-Mail verschickt wird und die dazugehörige E-Mail-Adresse
+DEFAULT_FROM_EMAIL = 'Cams World <info@cams-world.de>'  # Name unter dem die E-Mail verschickt wird und die dazugehörige E-Mail-Adresse
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # SMTP-Backend
-EMAIL_HOST = 'smpt.dein_host.ch'
+EMAIL_HOST = 'smtp.strato.de'
 EMAIL_PORT = 587 # oder 587 oder was immer der Port deines E-Mail-Providers ist
 EMAIL_USE_TLS = True  # Verbindung benutzt TLS-Verschlüsselung
 EMAIL_HOST_USER = config['EMAIL_HOST_USER']
@@ -183,7 +191,7 @@ JAZZMIN_SETTINGS ={
 "custom_links": {
     "main": [{
         "name": "Home",
-        "url": "http://coachlamont.de/",
+        "url": "http://cams-world.de/",
         "icon": "fas fa-home",
     }]
 },
