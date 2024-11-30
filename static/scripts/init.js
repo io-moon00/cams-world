@@ -30,7 +30,6 @@ function removeAllActive(page){
         document.getElementById('blog').classList.remove('active');
     }
     if(page !== 'athlets'){
-        document.getElementById('athlets').classList.remove('active');
     }
 }
 
