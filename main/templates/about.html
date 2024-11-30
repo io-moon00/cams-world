@@ -1,83 +1,125 @@
 {% extends 'page.html' %}
 {% load i18n %}
-{% load markdown_extras %}
+
 
 {% block stylesheets %}
 <link rel="stylesheet" href="../static/style/about.css">
 {% endblock %}
 {% block page %}'about'{% endblock %}
 {% block content %}
+{% load custom_templatetags %}
 
-{% for aboutSection in aboutSections %}
-    {% if 'aboutSection.title_de or aboutSection.text_de' and LANGUAGE_CODE == 'de' %}
-        <div class="aboutSection">
-            {% if aboutSection.image %}
-            <img src="{{ aboutSection.image.image.url }}">
+<div class="overflow-hidden bg-white pt-10 sm:pt-24">
+    <div class="mx-auto">
+      <div class="max-w-4xl">
+        <p class="text-base/7 font-semibold text-red">
+            {% if LANGUAGE_CODE == 'de' %}
+            Über mich
+            {% else %}
+            About me
             {% endif %}
-            <div>         
-                {% if aboutSection.title_de %}
-                    <h3>{{ aboutSection.title_de }}</h3>
-                {% else %} 
-                    <h3>{{ aboutSection.title }}</h3>  
-                {% endif %}
-
-                {% if aboutSection.text_de %}
-                    <div>{{ aboutSection.text_de | convert_markdown | safe }}</div>
-                {% else %}  
-                    <div>{{ aboutSection.text | convert_markdown | safe }}</div>  
-                {% endif %} 
-            </div>         
+        </p>
+        <h1 class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">
+            {% if LANGUAGE_CODE == 'de' and page.title_de %}
+                {{ page.title_de }}
+            {% else %}
+                {{ page.title }}
+            {% endif %}
+        </h1>
+        <p class="mt-6 text-balance text-xl/8 text-gray-700">
+            {% if LANGUAGE_CODE == 'de' and page.text_de %}
+                {{ page.text_de|first_paragraph|safe }}
+            {% else %}
+                {{ page.text|first_paragraph|safe }}
+            {% endif %}
+        </p>
+      </div>
+      <section class="mt-20 grid grid-cols-1 lg:grid-cols-2 lg:gap-x-8 lg:gap-y-16">
+        <div class="lg:pr-8">
+          <div class="font-light text-gray-500 prose prose-headings:text-red prose-a:text-red prose-a:no-underline hover:prose-a:underline min-w-full">
+            {% if LANGUAGE_CODE == 'de' and page.text_de %}
+                {{ page.text_de|exclude_first_paragraph|safe }}
+            {% else %}
+                {{ page.text|exclude_first_paragraph|safe  }}
+            {% endif %}
         </div>
-    {% else %}
-        <div class="aboutSection">
-            {% if aboutSection.image %}
-            <img src="{{ aboutSection.image.image.url }}">
-            {% endif %}
-            <div>
-                <h3>{{ aboutSection.title }}</h3>
-                <div>{{ aboutSection.text | convert_markdown | safe }}</div>
+        </div>
+        <div class="pt-16 lg:row-span-2 hidden lg:block">
+            <div class="-mx-8 grid grid-cols-2 gap-4 sm:-mx-16 sm:grid-cols-4 lg:mx-0 lg:grid-cols-2 lg:gap-4 xl:gap-8">
+              <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
+                <img alt="" src="{{ images.0.image.url }}" class="w-full h-full object-center object-cover">
+              </div>
+              <div class="-mt-8 aspect-w-1 aspect-h-1 overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10 lg:-mt-40 lg:mb-40">
+                <img alt="" src="{{ images.1.image.url }}" class="w-full h-full object-center object-cover">
+              </div>
+              <div class="aspect-w-1 aspect-h-1 overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10">
+                <img alt="" src="{{ images.2.image.url }}" class="block size-full object-cover">
+              </div>
+              <div class="-mt-8 aspect-square overflow-hidden rounded-xl shadow-xl outline-1 -outline-offset-1 outline-black/10 lg:-mt-40 lg:mb-40">
+                <img alt="" src="{{ images.3.image.url }}" class="block size-full object-cover">
+              </div>
             </div>
-        </div>
+          </div>
+      </section>
+    </div>
+  </div>
+  
+
+<div class="divide-y">
+    {% if LANGUAGE_CODE == 'de' %}
+        <h3 class="mb-4 mt-40 text-3xl font-bold">Teams und einige Rennen, an denen Cameron teilgenommen hat:</h3>
+    {% else %}
+        <h3 class="mb-4 mt-40 text-3xl font-bold">Teams and some races Cameron has done:</h3>
     {% endif %}
-{% endfor %}
-
-{% if LANGUAGE_CODE == 'de' %}
-    <h3 class="mb-30">Teams und einige Rennen, an denen Cameron teilgenommen hat:</h3>
-{% else %}
-    <h3 class="mb-30">Teams and some races Cameron has done:</h3>
-{% endif %}
-
-<table id="careerStages">
-    {% for careerStage in careerStages %}
-    <tr>
-        <td class="year">{{ careerStage.year }}</td>
-        {% if LANGUAGE_CODE == 'de' and careerStage.text_de %}
-            <td>{{ careerStage.text_de }}</td>
-        {% else %}
-            <td>{{ careerStage.text }}</td>
-        {% endif %}
-    </tr>
-    {% endfor %}
-</table>
-
-{% if LANGUAGE_CODE == 'de' %}
-    <h3 class="mb-30 mt-40">Gallerie</h3>
-{% else %}
-    <h3 class="mb-30 mt-40">Gallery</h3>
-{% endif %} 
-
-<div class="gallery">
-    {% for image in images %}
-        {% if image.image.width < image.image.height %}
-            <img onclick="openImg('{{ image.image.url }}')" class="row-span-2" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ image.position }};">
-        {% else %}
-            <img onclick="openImg('{{ image.image.url }}')" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ image.position }};">
-        {% endif %}    
-    {% endfor %}
+    <div>
+        <div class=" mt-8">
+            <ol class="relative border-s border-gray-200 gap-4 flex flex-col">    
+                {% for careerStage in careerStages %}              
+                <li class="ms-4">
+                    <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
+                    <time class="mb-1 text-sm font-normal leading-none text-gray-400">{{ careerStage.year }}</time>
+                    <h3 class="text-lg font-semibold text-gray-900">
+                        {% if LANGUAGE_CODE == 'de' and careerStage.text_de %}
+                        {{ careerStage.title_de }}
+                        {% else %}
+                        {{ careerStage.title }}
+                        {% endif %}
+                    </h3>
+                    <p class="text-base font-normal text-gray-500">
+                        {% if LANGUAGE_CODE == 'de' and careerStage.text_de %}
+                        {{ careerStage.text_de }}
+                        {% else %}
+                        {{ careerStage.text }}
+                        {% endif %}
+                    </p>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>  
+    </div>
 </div>
-<div id="image-container" class="image-container d-none">
-    <img onclick="closeImg()" class="close-cross" src="../../media/public/closeCross.svg" alt="close Cross">
-    <img id="detail-image" class="img-detail-view" src = "">
+
+<div class="divide-y">
+    {% if LANGUAGE_CODE == 'de' %}
+        <h3 class="mb-4 mt-40 text-3xl font-bold">Gallerie</h3>
+    {% else %}
+        <h3 class="mb-4 mt-40 text-3xl font-bold">Gallery</h3>
+    {% endif %} 
+    <div>
+        <div class="gallery mt-8">
+            {% for image in images %}
+                {% if image.image.width < image.image.height %}
+                    <img onclick="openImg('{{ image.image.url }}')" class="row-span-2 rounded-xl" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ image.position }};">
+                {% else %}
+                    <img onclick="openImg('{{ image.image.url }}')" class="rounded-xl" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ image.position }};">
+                {% endif %}    
+            {% endfor %}
+        </div>
+        <div id="image-container" class="image-container d-none">
+            <img onclick="closeImg()" class="close-cross" src="../../media/public/closeCross.svg" alt="close Cross">
+            <img id="detail-image" class="img-detail-view" src = "">
+        </div>
+    </div>
 </div>
 
 {% endblock %}

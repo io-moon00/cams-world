@@ -1,5 +1,7 @@
 {% load i18n %}
-{% load markdown_extras %}
+{% load compress %}
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +15,9 @@
     <link rel="stylesheet" href="https://use.typekit.net/lkn6qbz.css">
     <link rel="stylesheet" href="../static/style/footer.css">
     <link rel="stylesheet" href="../static/style/dropdown.css">
+    {% compress css %}
+    <link rel="stylesheet" href="{% static 'src/output.css' %}">
+    {% endcompress %}
 
     {% block stylesheets %}{% endblock %}
 
@@ -34,10 +39,12 @@
     <script src="../static/scripts/init.js"></script>
 
     <!-- title -->
-    {% if athlet %}
-    <title>{{ athlet.first_name }} {{ athlet.last_name }}</title>
+    {% if athlete %}
+    <title>{{ athlete.first_name }} {{ athlete.last_name }}</title>
     {% elif page %}
     <title>{{ page.title }}</title>
+    {% elif post %}
+    <title>{{ post.title }}</title>
     {% else %}
     <title>{% block title %}{% endblock %}</title>
     {% endif %}
@@ -69,15 +76,15 @@
                     {% endif %} 
                 </a></li>
                   <li id="blog" class="menu-item"><a href="{% url 'blog' %}">blog</a></li>
-                  <li id="athlets" class="menu-item">
-                    <a href="{% url 'athlets' %}">
+                  <li id="athletes" class="menu-item">
+                    <a href="{% url 'athletes' %}">
                         {% if LANGUAGE_CODE == 'de' %}
                             athleten
                         {% else %}
-                            athlets
+                            athletes
                         {% endif %}
                     </a>
-                    {% if athlets %}
+                    {% if athletes %}
                     <svg onclick="dropdown()" id="arrow" class="drop-down-arrow" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 25.35 59.28">
                         <g id="Calque_187_-_copie" data-name="Calque 187 - copie">
                             <g id="Calque_4_-_copie" data-name="Calque 4 - copie">
@@ -89,8 +96,8 @@
                     <ol class="sub-menu" id="submenu">
                         <div class="spacer"></div>
                         <div class="sub-menu-bg">
-                            {% for athlet in athlets %}
-                                <li class="menu-item"><a href="{% url 'athlet' athlet.id %}">{{ athlet.first_name }} {{ athlet.last_name }}</a></li>
+                            {% for athlete in athletes %}
+                                <li class="menu-item"><a href="{% url 'athlete' athlete.id %}">{{ athlete.first_name }} {{ athlete.last_name }}</a></li>
                             {% endfor %}
                         </div>
                     </ol>
@@ -119,36 +126,16 @@
             </form>
         </div>
     </header>
-    {% if athlet.hero %}
-        <img class="hero-img" style="object-position: {{ athlet.position }};" src="{{ athlet.hero.url }}" alt="Athlet Image">
+    {% if athlete.hero_img %}
+        <img class="hero-img" style="object-position: {{ athlete.position }};" src="{{ athlete.hero_img.url }}" alt="Athlete Image">
     {% elif page.hero.image %}
         <img class="hero-img" src="{{ page.hero.image.url }}" alt="{{ page.hero.image.alt }}">
+    {% elif post.image %}
+        <img class="hero-img object-top" src="{{ post.image.image.url }}" alt="{{ page.hero.image.alt }}">
     {% endif %}
     
     <div class="wrapper">
         <div class="content">
-            {% if athlet %}
-            <h1>{{ athlet.first_name }} {{ athlet.last_name }}</h1>
-            {% elif page %}
-                {% if LANGUAGE_CODE == 'de' and page.title_de %}
-                    <h1>{{ page.title_de }}</h1>
-                {% else %}
-                    <h1>{{ page.title }}</h1>
-                {% endif %}
-            {% else %}
-                
-            {% endif %}
-
-            {% if LANGUAGE_CODE == 'de' and page.text_de %}
-                <div>
-                    {{ page.text_de | convert_markdown | safe }}
-                </div>
-            {% elif page.text %}
-                <div>
-                    {{ page.text | convert_markdown | safe }}
-                </div>
-            {% endif %}
-
             {% block content %}
             {% endblock %}    
         </div>
@@ -156,7 +143,7 @@
     <footer>
         <div class="wrapper-footer">
             <div class="copyright">
-                <span>© {{ year }} camsworld</span> 
+                <span>&copy;  {% now "Y" %} camsworld</span> 
             </div>
             <div class="flex-col">
                 <img class="footer-logo" src="../../media/public/camsworld_logo_notext.svg" alt="Logo">
@@ -184,5 +171,6 @@
             </nav>
         </div>
     </footer>
+    <script src="{% static './node_modules/flowbite/dist/flowbite.min.js' %}"></script>
 </body>
 </html>

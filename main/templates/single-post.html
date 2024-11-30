@@ -1,0 +1,59 @@
+{% extends 'page.html' %}
+{% load i18n %}
+
+{% block page %}'blog'{% endblock %}
+{% block content %}
+
+<section class="bg-white">
+  <div class="max-w-screen-xl">
+    <div class="mt-4">
+      <button onclick="window.history.back();" class="text-sm text-red hover:underline">
+        &larr; {% if LANGUAGE_CODE == 'de' %}
+        Zurück
+        {% else %}
+        Back
+        {% endif %}
+      </button>
+    </div>
+    <div class="bg-white py-16">
+      <div class="text-base/7 text-gray-700">
+        <div class="lg:flex lg:items-center lg:justify-between">
+          <div class="min-w-0 flex-1">
+            <div class="mt-1 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+              <div class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="mr-1.5 size-5 shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                  aria-hidden="true" data-slot="icon">
+                  <path fill-rule="evenodd"
+                    d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z"
+                    clip-rule="evenodd" />
+                </svg>
+                {{ post.postDate }}
+              </div>
+              <div class="mt-2 flex items-center text-sm text-gray-500">
+                <svg class="mr-1.5 size-5 shrink-0 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                  width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z" />
+                </svg>
+                {{ post.tag.name }}
+              </div>
+            </div>
+            <h2 class="mt-2 text-2xl/7 font-bold text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+              {{ post.title }}
+            </h2>
+
+          </div>
+        </div>
+        <div class="font-light text-gray-500 prose prose-headings:text-red prose-a:text-red prose-a:no-underline hover:prose-a:underline">
+          {% if LANGUAGE_CODE == 'de' and post.content_de %}
+              {{ post.content_de | safe }}
+          {% else %}
+              {{ post.content | safe }}
+          {% endif %}
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,6 +1,5 @@
 {% extends 'page.html' %}
 {% load i18n %}
-{% load markdown_extras %}
 
 {% block page %}'coaching'{% endblock %}
 
@@ -9,6 +8,31 @@
 {% endblock %}
 
 
-{% block content %}
 
+{% block content %}
+<section class="bg-white py-10 sm:py-24">
+    <div class="max-w-screen-xl">
+        <div class="mx-auto mb-8 lg:mb-16">
+            <div class="max-w-4xl">
+                <p class="text-base/7 font-semibold text-red">Coaching</p>
+                <h1 class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl mb-10">
+                    {% if LANGUAGE_CODE == 'de' and page.title_de %}
+                        {{ page.title_de }}
+                    {% else %}
+                        {{ page.title }}
+                    {% endif %}
+                </h1>
+              </div>
+              <div class="lg:pr-8">
+                <div class="font-light text-gray-500 prose prose-headings:text-red prose-a:text-red prose-a:no-underline hover:prose-a:underline min-w-full">
+                    {% if LANGUAGE_CODE == 'de' and page.text_de %}
+                        {{ page.text_de | safe }}
+                    {% else %}
+                        {{ page.text | safe }}
+                    {% endif %}
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
 {% endblock %}

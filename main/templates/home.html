@@ -13,5 +13,21 @@
         <span>Running</span>
         <span>Coaching</span>        
     </div>
+<div class="py-10 sm:py-24">
+    <h1 class="mb-4 text-4xl tracking-tight font-extrabold text-red">
+        {% if LANGUAGE_CODE == 'de' and page.title_de %}
+            {{ page.title_de }}
+        {% else %}
+            {{ page.title }}
+        {% endif %}
+    </h1>
 
+    <div class="font-light text-gray-500 prose prose-headings:text-red prose-a:text-red prose-a:no-underline hover:prose-a:underline">
+        {% if LANGUAGE_CODE == 'de' and page.text_de %}
+            {{ page.text_de | safe }}
+        {% else %}
+            {{ page.text | safe }}
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

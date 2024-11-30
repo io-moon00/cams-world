@@ -1,0 +1,50 @@
+{% extends 'page.html' %}
+{% load i18n %}
+
+
+{% block stylesheets %}
+<link rel="stylesheet" href="../static/style/athlet.css">
+{% endblock %}
+
+{% block page %}'athletes'{% endblock %}
+
+{% block content %}
+<section class="bg-white pt-10 sm:pt-24">
+    <div class="max-w-screen-xl">
+        <div class="mx-auto mb-8 lg:mb-16">
+            <div class="max-w-4xl">
+                <p class="text-base/7 font-semibold text-red">{{ athlete.get_category_display }}</p>
+                <h1 class="mt-2 text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl mb-10">
+                    {{ athlete.first_name }} {{ athlete.last_name }}
+                </h1>
+              </div>
+              <div class="lg:pr-8">
+                <div class="font-light text-gray-500 prose prose-headings:text-red prose-a:text-red prose-a:no-underline hover:prose-a:underline min-w-full">
+                    {% if LANGUAGE_CODE == 'de' and page.text_de %}
+                        {{ athlete.content_de | safe }}
+                    {% else %}
+                        {{ athlete.content | safe }}
+                    {% endif %}
+                </div>
+            </div>
+        </div> 
+    </div>
+</section>
+
+
+<div class="gallery">
+    {% for image in images %}
+        {% if image.image.width < image.image.height %}
+            <img onclick="openImg('{{ image.image.url }}')" class="row-span-2 rounded-lg" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ athlete.position }};">
+        {% else %}
+            <img onclick="openImg('{{ image.image.url }}')" class="rounded-lg" src="{{ image.image.url }}" alt="{{ image.alt }}" style="object-position: {{ athlete.position }};">
+        {% endif %}    
+    {% endfor %}
+</div>
+
+<div id="image-container" class="image-container d-none">
+    <img onclick="closeImg()" class="close-cross" src="../../media/public/closeCross.svg" alt="close Cross">
+    <img id="detail-image" class="img-detail-view" src = "">
+</div>
+
+{% endblock %}

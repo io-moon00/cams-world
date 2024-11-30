@@ -1,6 +1,6 @@
 {% extends 'page.html' %}
 {% load i18n %}
-{% load markdown_extras %}
+
 
 {% block stylesheets %}
 <link rel="stylesheet" href="../static/style/contact.css">
@@ -9,42 +9,171 @@
 {% block page %}'contact'{% endblock %}
 
 {% block content %}
-<div class="mail-tel">
-  <p><span>E-Mail: </span><a href="mailto: {{contact_data.email}}">{{contact_data.email}}</a></p>
-  {%  if contact_data.phone_de %}
-    <p><span>Phone (DE): </span><a href="tel:{{contact_data.phone_de}}">{{contact_data.phone_de}}</a></p>
-  {% endif %}
-  {%  if contact_data.phone_de %}
-    <p><span>Phone (CH): </span><a href="tel:{{contact_data.phone_ch}}">{{contact_data.phone_ch}}</a></p>
-  {% endif %}
-</div>
 
-
-{% if LANGUAGE_CODE == 'de' %}
-  {% if submitted %}
-    <h3 class = "success">Vielen Dank für Ihre Nachricht. Ich habe sie erhalten und werde mich in Kürze bei Ihnen melden.</h3>
-  {% else %}
-  <h3>Kontaktformular</h3>
-    <form class="contact-form" method="post">
+<div class="relative isolate bg-white">
+  <div class="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
+    <div class="relative pb-20 pt-24 lg:static">
+      <div class="mx-auto max-w-xl lg:mx-0 lg:max-w-lg">
+        <p class="text-base/7 font-semibold text-red">
+          {% if LANGUAGE_CODE == 'de' %}
+          Kontakt
+          {% else %}
+          Contact
+          {% endif %}
+        </p>
+        <h2 class="text-pretty text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl mb-10">
+          {% if LANGUAGE_CODE == 'de' and page.title_de %}
+                      {{ page.title_de }}
+                  {% else %}
+                      {{ page.title }}
+                  {% endif %}
+        </h2>
+        <div class="font-light text-gray-500 prose prose-headings:text-red prose-a:text-red prose-a:no-underline hover:prose-a:underline min-w-full">
+          {% if LANGUAGE_CODE == 'de' and page.text_de %}
+              {{ page.text_de | safe }}
+          {% else %}
+              {{ page.text | safe }}
+          {% endif %}
+      </div>
+        <dl class="mt-10 space-y-4 text-base/7 text-gray-600">
+          {%  if contact_data.phone_de %}
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">Telephone</span>
+              <svg class="h-7 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+              </svg>
+            </dt>
+            <dd>
+              DE: 
+              <a class="hover:text-gray-900" href="{{contact_data.phone_de}}">{{contact_data.phone_de}}</a>
+            </dd>
+          </div>
+          {% endif %}
+          {%  if contact_data.phone_ch %}
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">Telephone</span>
+              <svg class="h-7 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+              </svg>
+            </dt>
+            <dd>
+              CH: 
+              <a class="hover:text-gray-900" href="{{contact_data.phone_ch}}">{{contact_data.phone_ch}}</a>
+            </dd>
+          </div>
+          {% endif %}
+          <div class="flex gap-x-4">
+            <dt class="flex-none">
+              <span class="sr-only">Email</span>
+              <svg class="h-7 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+            </dt>
+            <dd><a class="hover:text-gray-900" href="mailto:{{contact_data.email}}">{{contact_data.email}}</a></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    {% if submitted %}
+    <div class="pb-24 pt-20 sm:pb-32">
+      {% if LANGUAGE_CODE == 'de' %}
+      <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span class="font-medium">Nachricht gesendet!</span> Danke für deine Anfrage. Ich melde mich so schnell wie möglich bei dir.
+        </div>
+      </div>
+      {% else %}
+      <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+          <span class="font-medium">Message sent!</span> Thank you for your request. I'll get back to you as soon as possible.
+        </div>
+      </div>
+      {% endif %}
+      
+  
+    </div>
+    {% else %}
+    <form action="#" method="POST" class="pb-24 pt-20 sm:pb-32">
       {% csrf_token %}
-      {{ form_de.as_p }}
-      <div>
-        <button class="send-button" type="submit">Absenden</button>
+      <div class="mx-auto max-w-xl lg:mr-0 lg:max-w-lg">
+        <div class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div>
+            <label for="prename" class="block text-sm/6 font-semibold text-gray-900">
+              {% if LANGUAGE_CODE == 'de' %}
+              Vorname
+              {% else %}
+              First name
+              {% endif %}
+            </label>
+            <div class="mt-2.5">
+              {{ form.prename }}
+            </div>
+          </div>
+          <div>
+            <label for="last-name" class="block text-sm/6 font-semibold text-gray-900">
+              {% if LANGUAGE_CODE == 'de' %}
+              Nachname
+              {% else %}
+              Last name
+              {% endif %}
+            </label>
+            <div class="mt-2.5">
+              {{ form.name }}
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="email" class="block text-sm/6 font-semibold text-gray-900">Email</label>
+            <div class="mt-2.5">
+              {{ form.email }}
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="phone-number" class="block text-sm/6 font-semibold text-gray-900">
+              {% if LANGUAGE_CODE == 'de' %}
+              Telefonnummer
+              {% else %}
+              Phone number
+              {% endif %}
+              </label>
+            <div class="mt-2.5">
+              {{ form.phone }}
+            </div>
+          </div>
+          <div class="sm:col-span-2">
+            <label for="message" class="block text-sm/6 font-semibold text-gray-900">
+              {% if LANGUAGE_CODE == 'de' %}
+              Nachricht
+              {% else %}
+              Message
+              {% endif %}
+            </label>
+            <div class="mt-2.5">
+              {{ form.message }}
+            </div>
+          </div>
+        </div>
+        <div class="mt-8 flex justify-end">
+          <button type="submit" class="rounded-md border-red border px-3.5 py-2.5 text-center text-sm font-semibold text-red shadow-sm hover:text-white hover:bg-red transition-all">
+            {% if LANGUAGE_CODE == 'de' %}
+              Nachricht senden
+              {% else %}
+              Send message
+              {% endif %}
+          </button>
+        </div>
       </div>
     </form>
-  {% endif %} 
-{% else %}
-  {% if submitted %}
-    <h3 class = "success">Thank you very much for your message. I have received it and will get back to you shortly.</h3>
-  {% else %}
-    <h3>Contact form</h3>
-    <form class="contact-form" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <div>
-        <button class="send-button" type="submit">Send</button>
-      </div>
-    </form>  
-  {% endif %} 
-{% endif %}
+    {% endif %}
+  </div>
+</div>
 {% endblock %}

@@ -18,10 +18,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from main.views import home, coaching, blog, athlets, athlet, about, impressum, legal, page_not_found
+from main.views import home, coaching, blog, athletes, athlete, about, impressum, legal, page_not_found, single_post
 from forms import views
-
 from django.urls import include
+from adminsortable2.admin import SortableAdminMixin
 
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
@@ -29,17 +29,15 @@ urlpatterns = [
     path('', home, name='home'),
     path('about/', about, name='about'),
     path('coaching/', coaching, name='coaching'),
-    path('athlets/', athlets, name='athlets'),
-    path('athlet/<int:id>', athlet, name='athlet'),
+    path('athletes/', athletes, name='athletes'),
+    path('athlete/<int:id>', athlete, name='athlete'),
     path('blog/', blog, name='blog'),
     path('contact/', views.contact_view, name='contact'),
     path('impressum/', impressum, name='impressum'),
     path('legal/', legal, name='legal'),
-    path('not/', page_not_found)
-]
-
-handler404 = "main.views.page_not_found_view"
-
+    path('single-post/<int:id>', single_post, name='single_post'),
+    path('ckeditor5/', include('django_ckeditor_5.urls')),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

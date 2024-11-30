@@ -1,10 +1,10 @@
-You have received a message via the contact form of your website!
+You have received a message via the contact form of your website Cams World!
 
 The message comes from: 
-      Title: {{ salutation }}
       First name: {{ prename }}
       Last name: {{ name }}
       E-mail: {{ email }}
+      Phone: {{ phone }}
   
   	Message:
     {{ message }}

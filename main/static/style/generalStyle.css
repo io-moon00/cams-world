@@ -36,7 +36,6 @@ body{
     display: grid;
     flex-direction: column;
     font-family: "franklin-gothic-atf", sans-serif;
-    background-color:var(--bg-color);
     color: var(--text-color);
     overflow-x: hidden;
     box-sizing: border-box;
